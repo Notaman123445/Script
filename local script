@@ -1,0 +1,18 @@
+local TextChatService = game:GetService("TextChatService")
+local commandEvent = game.ReplicatedStorage.CommandEvent
+
+TextChatService.SendingMessage:Connect(function(textChatMessage)
+	local message = textChatMessage.Text
+	print(message)
+	local command = {}
+	for word in string.gmatch(message, "%S+") do
+		table.insert(command, word)
+	end
+	local action = command[1]
+	print(action)
+	local person = command[2]
+	print(person)
+	local person2 = command[3]
+	print(person2)
+	commandEvent:FireServer(action, person, person2)
+end)
